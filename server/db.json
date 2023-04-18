@@ -31,10 +31,28 @@
       "name": "The Da Vinci Code",
       "author": "Dan Brown",
       "thumbnail": "https://www.upoharbd.com/images/uploads/Books/DaVinciCode_by_Dan_Brown.jpg",
-      "price": "650",
-      "rating": "4",
+      "price": "649.99",
+      "rating": "5",
       "featured": true,
       "id": 5
+    },
+    {
+      "name": "ভোলগা থেকে গঙ্গা",
+      "author": "Rahul Sankrityayan",
+      "thumbnail": "https://ds.rokomari.store/rokomari110/ProductNew20190903/260X372/ffb01a85e_8249.jpg",
+      "price": "399.99",
+      "rating": "4",
+      "featured": true,
+      "id": 6
+    },
+    {
+      "name": "All Quiet on the Western Front",
+      "author": "Erich Maria Remarque",
+      "thumbnail": "https://d3525k1ryd2155.cloudfront.net/h/341/992/1381992341.0.x.jpg",
+      "price": "449.99",
+      "rating": "5",
+      "featured": true,
+      "id": 7
     }
   ]
 }

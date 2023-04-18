@@ -13,6 +13,12 @@ export const apiSlice = createApi({
             keepUnusedDataFor: 600,
             providesTags: ["Books"]
         }),
+        // Get single book data from the server
+        getBook: builder.query({
+            query: (bookId) => `/books/${bookId}`,
+            providesTags: (result, error, arg) => [{ type: "Book", id: arg }],
+        }),
+
         // Add New Book to the server
         addBook: builder.mutation({
             query: (data) => ({
@@ -21,9 +27,25 @@ export const apiSlice = createApi({
                 body: data,
             }),
             invalidatesTags: ["Books"],
-        })
-
+        }),
+        // Edit Book to the server
+        editBook: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `/books/${id}`,
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["Books"],
+        }),
+        // Delete Book from the server
+        deleteBook: builder.mutation({
+            query: (id) => ({
+                url: `/books/${id}`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Books"],
+        }),
     }),
 });
 
-export const { useGetBooksQuery, useAddBookMutation } = apiSlice;
+export const { useGetBooksQuery, useGetBookQuery, useAddBookMutation, useEditBookMutation, useDeleteBookMutation } = apiSlice;

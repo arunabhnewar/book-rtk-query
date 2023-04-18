@@ -6,10 +6,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
+import { useDeleteBookMutation } from "../../features/api/apiSlice";
 
 const Book = ({ book }) => {
+  // Hooks
+  const [deleteBook, { isLoading, isError, isSuccess }] =
+    useDeleteBookMutation();
+
   // Destructure the book
   const { name, author, thumbnail, price, rating, featured, id } = book || {};
+
+  // Delete handler
+  const handleDelete = () => {
+    if (id) deleteBook(id);
+  };
 
   return (
     <div className='book-card'>
@@ -42,7 +52,7 @@ const Book = ({ book }) => {
                 </svg>
               </button>
             </Link>
-            <button className='lws-deleteBook'>
+            <button onClick={handleDelete} className='lws-deleteBook'>
               <svg
                 fill='none'
                 viewBox='0 0 24 24'

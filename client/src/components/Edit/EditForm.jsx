@@ -1,8 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useEditBookMutation } from "../../features/api/apiSlice";
+import Error from "../UI/Error";
+import Success from "../UI/Success";
 
-const EditForm = () => {
+const EditForm = ({ book }) => {
+  // Hooks
+  const [editBook, { isError, isLoading, isSuccess }] = useEditBookMutation();
+
+  // Navigate
+  const navigate = useNavigate();
+
+  // Destructuring from book
+  const {
+    id,
+    name: initialName,
+    author: initialAuthor,
+    thumbnail: initialThumbnail,
+    price: initialPrice,
+    rating: initialRating,
+    featured: initialFeatured,
+  } = book || {};
+
+  // Use State
+  const [name, setName] = useState(initialName);
+  const [author, setAuthor] = useState(initialAuthor);
+  const [thumbnail, setThumbnail] = useState(initialThumbnail);
+  const [price, setPrice] = useState(initialPrice);
+  const [rating, setRating] = useState(initialRating);
+  const [featured, setFeatured] = useState(initialFeatured);
+
+  // Submit handlers
+  const handleSubmit = e => {
+    e.preventDefault();
+    editBook({
+      id,
+      data: {
+        name,
+        author,
+        thumbnail,
+        price,
+        rating,
+        featured,
+      },
+    });
+  };
+
+  useEffect(() => {
+    if (isSuccess) navigate("/");
+  }, [isSuccess, navigate]);
+
   return (
-    <form className='book-form'>
+    <form onSubmit={handleSubmit} className='book-form'>
       <div className='space-y-2'>
         <label for='lws-bookName'>Book Name</label>
         <input
@@ -11,6 +60,8 @@ const EditForm = () => {
           type='text'
           id='lws-bookName'
           name='name'
+          value={name}
+          onChange={e => setName(e.target.value)}
         />
       </div>
 
@@ -22,6 +73,8 @@ const EditForm = () => {
           type='text'
           id='lws-author'
           name='author'
+          value={author}
+          onChange={e => setAuthor(e.target.value)}
         />
       </div>
 
@@ -33,6 +86,8 @@ const EditForm = () => {
           type='text'
           id='lws-thumbnail'
           name='thumbnail'
+          value={thumbnail}
+          onChange={e => setThumbnail(e.target.value)}
         />
       </div>
 
@@ -45,6 +100,8 @@ const EditForm = () => {
             type='number'
             id='lws-price'
             name='price'
+            value={price}
+            onChange={e => setPrice(e.target.value)}
           />
         </div>
 
@@ -58,6 +115,8 @@ const EditForm = () => {
             name='rating'
             min='1'
             max='5'
+            value={rating}
+            onChange={e => setRating(e.target.value)}
           />
         </div>
       </div>
@@ -68,6 +127,8 @@ const EditForm = () => {
           type='checkbox'
           name='featured'
           className='w-4 h-4'
+          checked={featured}
+          onChange={e => setFeatured(e.target.checked)}
         />
         <label for='lws-featured' className='ml-2 text-sm'>
           {" "}
@@ -75,9 +136,16 @@ const EditForm = () => {
         </label>
       </div>
 
-      <button type='submit' className='submit' id='lws-submit'>
+      <button
+        disabled={isLoading}
+        type='submit'
+        className='submit'
+        id='lws-submit'>
         Edit Book
       </button>
+
+      {isError && <Error message='There was an error adding book!' />}
+      {isSuccess && <Success message='Book was added successfully' />}
     </form>
   );
 };
