@@ -100,7 +100,7 @@ const Book = ({ book }) => {
       </div>
 
       {isError && !isSuccess && (
-        <Error message='There was an delete book error!' />
+        <Error message='There was a delete book error!' />
       )}
 
       {!isError && isSuccess && <Success message='Book deleted successfully' />}

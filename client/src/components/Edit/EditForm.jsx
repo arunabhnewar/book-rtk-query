@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { useEditBookMutation } from "../../features/api/apiSlice";
 import Error from "../UI/Error";
 import Success from "../UI/Success";
@@ -7,9 +6,6 @@ import Success from "../UI/Success";
 const EditForm = ({ book }) => {
   // Hooks
   const [editBook, { isError, isLoading, isSuccess }] = useEditBookMutation();
-
-  // Navigate
-  const navigate = useNavigate();
 
   // Destructuring from book
   const {
@@ -45,10 +41,6 @@ const EditForm = ({ book }) => {
       },
     });
   };
-
-  useEffect(() => {
-    if (isSuccess) navigate("/");
-  }, [isSuccess, navigate]);
 
   return (
     <form onSubmit={handleSubmit} className='book-form'>
