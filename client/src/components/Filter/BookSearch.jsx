@@ -1,6 +1,19 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { searched } from "../../features/filtersBook/filterSlice";
 
 const BookSearch = () => {
+  // dispatch
+  const dispatch = useDispatch();
+
+  // Use Selector
+  const { search } = useSelector(state => state.filter);
+
+  // Filter by search
+  const searchHandle = e => {
+    dispatch(searched(e.target.value));
+  };
+
   return (
     <form className='flex items-center'>
       <div className='group relative rounded-md bg-white'>
@@ -19,6 +32,8 @@ const BookSearch = () => {
           placeholder='Filter books...'
           className='search'
           id='lws-search'
+          value={search}
+          onChange={searchHandle}
         />
       </div>
     </form>

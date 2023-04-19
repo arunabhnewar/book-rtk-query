@@ -1,4 +1,5 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import BookLoader from "../UI/BookLoader";
 import Error from "../UI/Error";
@@ -7,6 +8,12 @@ import Book from "./Book";
 const Books = () => {
   // Hooks
   const { data: books, isError, isLoading } = useGetBooksQuery();
+
+  // UseSelector
+  const { status, search } = useSelector(state => state.filter);
+
+  // dispatch
+  const dispatch = useDispatch();
 
   // decide what to render
   let content = null;
@@ -30,7 +37,19 @@ const Books = () => {
   }
 
   if (!isLoading && !isError && books?.length > 0) {
-    content = books.map(book => <Book key={book.id} book={book} />);
+    content = books
+      .filter(book => {
+        if (book?.name.toLowerCase().includes(search)) {
+          return true;
+        }
+      })
+      .filter(book => {
+        if (status === "Featured") {
+          return book?.featured;
+        }
+        return true;
+      })
+      .map(book => <Book key={book.id} book={book} />);
   }
 
   return (
