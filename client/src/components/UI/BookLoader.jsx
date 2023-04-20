@@ -1,19 +1,18 @@
-import React from "react";
-
 const BookLoader = () => {
   return (
-    <div className='w-full col-span-12 sm:col-span-6 md:col-span-3 flex flex-col animate-pulse'>
-      <div className='relative'>
-        <div className='aspect-auto bg-slate-200' />
-      </div>
-
-      <div className='flex flex-row mt-2 gap-2 items-center'>
-        <div className='bg-slate-200 rounded-full h-8 w-8 shrink-0' />
-
-        <div className='flex flex-col space-y-1 grow'>
-          <p className='bg-slate-200 text-slate-200 text-[8px]'>Loading...</p>
-          <p className='bg-slate-200 text-slate-200 text-[8px]'>Loading...</p>
-          <p className='bg-slate-200 text-slate-200 text-[8px]'>Loading...</p>
+    <div class='border border-blue-100 shadow rounded-md p-4 max-w-sm w-full mx-auto'>
+      <div class='animate-pulse flex space-x-4'>
+        <div class='box-border h-32 bg-slate-200  w-32'></div>
+        <div class='flex-1 space-y-6 py-1'>
+          <div class='h-2 bg-slate-200 rounded'></div>
+          <div class='space-y-3'>
+            <div class='grid grid-cols-3 gap-4'>
+              <div class='h-2 bg-slate-200 rounded col-span-2'></div>
+              <div class='h-2 bg-slate-200 rounded col-span-2'></div>
+              <div class='h-2 bg-slate-200 rounded col-span-2'></div>
+            </div>
+            <div class='h-2 bg-slate-200 rounded'></div>
+          </div>
         </div>
       </div>
     </div>
